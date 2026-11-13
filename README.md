@@ -7,6 +7,25 @@ by dragging its top band, with no modifier keys.
 
 Run the commands below from this directory.
 
+## Management scripts
+
+All five scripts accept no arguments and work from any current directory:
+
+| command | action |
+|---------|--------|
+| `./build.sh` | Compile and ad-hoc sign the binary. Does not restart it. |
+| `./start.sh` | Restart via the installed login agent, or launch in the background if unregistered. |
+| `./stop.sh` | Stop the login agent and any running copy. Keep login registration. |
+| `./register-autostart.sh` | Install the agent with this project's absolute binary path and start it now. |
+| `./unregister-autostart.sh` | Stop the program and remove the installed login agent. |
+
+For initial setup, run `./build.sh` followed by `./register-autostart.sh`.
+Autostart runs when the current user logs in, not before login. Keep the project
+at the same path, or register again after moving it. The log is
+`/tmp/macosdragfix.log`; `macosdragfix active ...` confirms it is ready.
+If Accessibility permission is missing, the process waits for it. After
+granting permission for a rebuilt binary, run `./start.sh` if needed.
+
 ## Build
 
     swiftc -O -o macosdragfix macosdragfix.swift \
